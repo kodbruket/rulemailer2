@@ -60,7 +60,9 @@ class SubscriptionObserver implements ObserverInterface
         $this->resolver = $resolver;
 
         $apiKey = $this->config->getValue('rule_rulemailer/general/api_key', ScopeInterface::SCOPE_STORE);
-        $this->subscriberApi = new Subscriber($apiKey);
+        $useOptIn = $this->config->getValue('rule_rulemailer/general/use_opt_in', ScopeInterface::SCOPE_STORE);
+
+        $this->subscriberApi = new Subscriber($apiKey,null, $useOptIn);
     }
 
     /**

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
     <system>
-        <tab id="rule" translate="label" sortOrder="10">
+        <tab id="rule" translate="label" sortOrder="100">
             <label>Rule</label>
         </tab>
         <section id="rule_rulemailer" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -23,6 +23,11 @@
                     <label>Aggressive abandoned cart</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>With this option enabled, we will report the e-mail address provided in the checkout (given that the customer exists) before user is logged in.</comment>
+                </field>
+                <field id="use_opt_in" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Use opt-in</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For this to work a sign up flow in Rule have to be created first. One or more tag used to create the subscriber have to be tied to a sign up flow in Rule for the optin to function. If no opt in flow can be found the subscriber will be automatically opted in.</comment>
                 </field>
             </group>
         </section>

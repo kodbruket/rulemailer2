@@ -24,7 +24,7 @@ class Subscriber
     const CHECKOUT_COMPLETE_TAG = 'Order';
 
     /**
-     * @var
+     * @var \Rule\ApiWrapper\Api
      */
     private $subscriberApi;
 
@@ -34,14 +34,28 @@ class Subscriber
     private $fieldsBuilder;
 
     /**
+     * @var
+     */
+    private $useOptIn;
+
+    /**
      * Subscriber constructor.
      *
-     * @param $apiKey
+     * @param string $apiKey
+     * @param null   $storeManager
+     * @param int    $useOptIn
+     *
+     * @throws \Rule\ApiWrapper\Api\Exception\InvalidResourceException
      */
-    public function __construct($apiKey, $storeManager=null)
+    public function __construct($apiKey, $storeManager = null, $useOptIn = 0)
     {
         $this->subscriberApi = ApiFactory::make($apiKey, 'subscriber');
         $this->fieldsBuilder = new FieldsBuilder($storeManager);
+        if ($useOptIn == '1') {
+            $this->useOptIn = true;
+        } else {
+            $this->useOptIn = false;
+        }
     }
 
     /**
@@ -56,9 +70,10 @@ class Subscriber
     {
         // Setup the data
         $subscriber = [
-            'email'  => $email,
-            'tags'   => $tags,
-            'fields' => $fields
+            'email'          => $email,
+            'tags'           => $tags,
+            'fields'         => $fields,
+            'require_opt_in' => $this->useOptIn
         ];
 
         // Execute the API request

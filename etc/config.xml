@@ -4,6 +4,7 @@
         <rule_rulemailer>
             <general>
                 <aggressive_abandoned_cart>0</aggressive_abandoned_cart>
+                <use_opt_in>0</use_opt_in>
             </general>
         </rule_rulemailer>
     </default>
