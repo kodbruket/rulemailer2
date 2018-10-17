@@ -77,6 +77,7 @@ class SubscriptionObserver implements ObserverInterface
             // Set the tags for this subscriber
             $tags = [
                 Subscriber::NEWSLETTER_TAG,
+                Subscriber::NEWSLETTER_TAG . '-' . $this->resolver->getLocale()
             ];
 
             // Fetch current store
