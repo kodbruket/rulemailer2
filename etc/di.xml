@@ -5,4 +5,7 @@
     <type name="Magento\Customer\Model\AccountManagement">
         <plugin disabled="false" name="Rule_RuleMailer_Plugin_Magento_Customer_Model_AccountManagement" sortOrder="10" type="Rule\RuleMailer\Plugin\Magento\Customer\Model\AccountManagement"/>
     </type>
+    <type name="Magento\Newsletter\Model\Subscriber">
+        <plugin disabled="false" name="Rule_RuleMailer_Plugin_Magento_Newsletter_Model_Subscriber" sortOrder="10" type="Rule\RuleMailer\Plugin\Magento\Newsletter\Model\Subscriber"/>
+    </type>
 </config>
