@@ -5,7 +5,7 @@ namespace Rule\RuleMailer\Plugin\Magento\Newsletter\Model;
 class Subscriber
 {
     /**
-     * Before unsubscribe
+     * Before subscribe
      *
      * Enable import mode to avoid sending native Magento emails.
      *
