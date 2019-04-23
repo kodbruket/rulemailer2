@@ -11,6 +11,8 @@ use Magento\Customer\Model\Url as CustomerUrl;
 use Magento\Framework\App\Action\Context;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Newsletter\Model\SubscriberFactory;
+use Magento\Framework\Data\Form\FormKey\Validator;
+use Psr\Log\LoggerInterface;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -21,9 +23,15 @@ class NewAction extends \Magento\Newsletter\Controller\Subscriber
      * @var CustomerAccountManagement
      */
     private $customerAccountManagement;
-	
+    
+    /**
+     * @var Validator
+     */
     private $formKeyValidator;
-	
+    
+    /**
+     * @var Logger
+     */
     private $logger;
 
     /**
@@ -43,8 +51,8 @@ class NewAction extends \Magento\Newsletter\Controller\Subscriber
         StoreManagerInterface $storeManager,
         CustomerUrl $customerUrl,
         CustomerAccountManagement $customerAccountManagement,
-		\Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-		\Psr\Log\LoggerInterface $logger
+		Validator $formKeyValidator,
+		LoggerInterface $logger
     ) {
         $this->customerAccountManagement = $customerAccountManagement;
 		$this->formKeyValidator = $formKeyValidator;
@@ -66,14 +74,12 @@ class NewAction extends \Magento\Newsletter\Controller\Subscriber
      */
     public function execute()
     {
-		if (!$this->formKeyValidator->validate($this->getRequest())) :
+		if (!$this->formKeyValidator->validate($this->getRequest())) {
     		// invalid form key
 			$this->logger->info("Form_Key:Invalid Form Key");
-			
-		else:
-			// valid form key
-            $this->logger->info("Form_Key:Valid Form Key");
-            
+        }
+        $this->logger->info("Form_Key:Valid Form Key");
+        
 		if ($this->getRequest()->isPost() && $this->getRequest()->getPost('email')) {
             $email = (string)$this->getRequest()->getPost('email');
 
@@ -108,13 +114,11 @@ class NewAction extends \Magento\Newsletter\Controller\Subscriber
             }
         }
         $this->getResponse()->setRedirect($this->_redirect->getRedirectUrl());
-		
-		endif;
     }
 
     private function validateHoneypot()
     {
-        if($this->getRequest()->getPost('hpt-url')) {
+        if ($this->getRequest()->getPost('hpt-url')) {
             throw new \Magento\Framework\Exception\LocalizedException(
                 __('Invalid form data.')
             );
