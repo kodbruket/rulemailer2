@@ -97,6 +97,13 @@ class AccountManagement
         $password = null,
         $redirectUrl = ''
     ) {
+        // validate form key
+        if (!$this->formKeyValidator->validate($this->getRequest())) {
+    		// invalid form key
+			$this->logger->info("Form_Key:Invalid Form Key");
+        }
+        $this->logger->info("Form_Key:Valid Form Key");
+
         // Block if honeypot field is filled out
         if ($this->request->getPost('hpt-url')) {
             $line = "-- Spam Attempt --\n"
